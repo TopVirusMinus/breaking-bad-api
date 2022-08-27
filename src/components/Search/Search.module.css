@@ -1,0 +1,33 @@
+.searchContainer{
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+input, button{
+    border-radius: 5px;
+    margin: 1% 0;
+}
+
+input{
+    padding: 5px;
+    outline: none;
+    border: none;
+    margin: 0 1%;
+    background-color: #2F5C53;
+    color: #eee;
+}
+
+button{
+    text-align: center;
+    padding: 5px 20px;
+    border: none;
+    background-color: #2F5C53;
+    color: #eee;
+}
+
+button:hover{
+    background-color: #2F5C53;
+    color: rgb(181, 177, 177);
+}

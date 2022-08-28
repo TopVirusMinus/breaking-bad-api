@@ -2,9 +2,11 @@ import QuoteCSS from "./Quote.module.css";
 
 export const Quote = ({quote, author}) => {
     return ( 
-        <div className="QuoteContainer">
-            <p>{quote}</p>
-            <p>{author}</p>
+        <div className={QuoteCSS.QuoteContainer}>
+            <blockquote>
+                <p className={QuoteCSS.quote}>{quote}</p>
+                <p className={QuoteCSS.author}>{author}</p>
+            </blockquote>
         </div>        
      );
 }

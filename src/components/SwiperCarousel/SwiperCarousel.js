@@ -22,7 +22,7 @@ export default function SwiperCarousel({component}) {
   const Quotes = useCallback(async _ => {
     //fetches until getting 6 unique quotes
     while(quoteResponse.current.size < numberOfQuotes.current){
-      console.log("fetching");
+      //console.log("fetching");
       quoteResponse.current.add(await axios.get("https://www.breakingbadapi.com/api/quote/random"))
     }
 
@@ -48,13 +48,15 @@ export default function SwiperCarousel({component}) {
     }, []);
 
 
+  console.log("re-render");
+
   return (
     <>
       <Swiper
         loop={true}
         autoplay={{
           delay: 2500,
-          disableOnInteraction: true,
+          disableOnInteraction: false,
         }}
         pagination={{
           clickable: true

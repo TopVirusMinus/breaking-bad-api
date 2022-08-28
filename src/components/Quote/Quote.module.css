@@ -1,0 +1,26 @@
+blockquote{
+    padding: 25px;
+}
+
+blockquote::before{
+    content: "\201c";
+    font-size: 3em;
+    text-align: left;
+    display: block;
+    color: #dadddc9b;
+    margin-bottom: -20px;
+}
+
+p{
+    margin-bottom: 5px;
+}
+
+.author{
+    color: #dadddc9b;
+    font-style: italic;
+    text-align: right;
+}
+
+.author::before{
+    content: "\2014\0020";
+}

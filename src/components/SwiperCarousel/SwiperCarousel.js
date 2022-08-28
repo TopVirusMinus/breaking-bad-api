@@ -11,44 +11,41 @@ import { Pagination, Autoplay } from "swiper";
 
 export default function SwiperCarousel() {
   console.log("rerender");
+  let quotes = <SwiperSlide className={SwiperCSS.swiperSlide}>Fetching quotes...</SwiperSlide>;
   
-  const datas = useRef([]);
+  const quoteResponse = useRef(new Set()); //to make quotes unique
   const ref = useRef(false);
+  const quotesRef = useRef(quotes);
+  const [isQuotesFetched, setIsQuotesFetched] = useState(false);
+  
+  const Quotes = useCallback(async _ => {
+    //fetches until getting 6 unique quotes
+    while(quoteResponse.current.size < 6){
+      console.log("fetching");
+      quoteResponse.current.add(await axios.get("https://www.breakingbadapi.com/api/quote/random"))
+    }
 
-  const [calls,  setCalls] = useState(0);
+    //converts the response to a list
+    //then mapping each quote to a swiper
+    quotesRef.current = [...quoteResponse.current].map((res)=>{
+      return <SwiperSlide key={res.data[0].quote_id} className={SwiperCSS.swiperSlide}> {res.data[0].quote} </SwiperSlide>
+    })
 
-  const fetchData = useCallback(async _ => {
-    datas.current.push(await axios.get("https://www.breakingbadapi.com/api/quote/random"))
-    setCalls(prevCalls => prevCalls + 1);
-    return datas;
+    //Rerenders the page after mapping all the quotes
+    setIsQuotesFetched((prev)=>prev = true);
   }, []); 
   
-  let quotes = <SwiperSlide className={SwiperCSS.swiperSlide}>Loading data...</SwiperSlide>;
 
   useEffect(()=>{
-    if(calls < 6){
-      if(ref.current){
-        fetchData();
+      if(ref.current || process.env.NODE_ENV !== 'development'){
+        Quotes();
       }
     
       return ()=>{
         ref.current = true;
       }
-    }
-  })
+    }, []);
 
-  //console.log(datas.current);
-  console.log(calls); 
- const fillCarousel = useCallback(()=>{
-    console.log("mapping");
-    quotes = datas.current.map((res)=>{
-      return <SwiperSlide key={res.data[0].quote_id} className={SwiperCSS.swiperSlide}> {res.data[0].quote} </SwiperSlide>
-    })
-  });
-
-  if(calls >= 6){
-    fillCarousel();
-  }
 
   return (
     <>
@@ -64,7 +61,7 @@ export default function SwiperCarousel() {
         modules={[Pagination, Autoplay]}
         className={SwiperCSS.swiper}
       >
-       {quotes}
+       {quotesRef.current}
       </Swiper>
     </>
   );

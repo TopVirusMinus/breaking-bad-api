@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
+import { useFetchQuotes } from "../../hooks/useFetchQuotes";
 import { useAsync } from "react-async-hook";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,45 +12,47 @@ import {Quote} from "../Quote/Quote";
 
 export default function SwiperCarousel({component}) {
   console.log("rerender");
-  let quotes = <SwiperSlide className={SwiperCSS.swiperSlide}>Fetching quotes...</SwiperSlide>;
+  let quoteLoadPlaceholder = <SwiperSlide className={SwiperCSS.swiperSlide}>Fetching quotes...</SwiperSlide>;
   
-  const quoteResponse = useRef(new Set()); //to make quotes unique
+  //to make quotes unique
   const ref = useRef(false);
-  const quotesRef = useRef(quotes);
-  const [isQuotesFetched, setIsQuotesFetched] = useState(false);
+  const quotesRef = useRef();
   const numberOfQuotes = useRef(6);
-
-  const Quotes = useCallback(async _ => {
-    //fetches until getting 6 unique quotes
-    while(quoteResponse.current.size < numberOfQuotes.current){
-      //console.log("fetching");
-      quoteResponse.current.add(await axios.get("https://www.breakingbadapi.com/api/quote/random"))
-    }
-
-    //converts the response to a list
-    //then mapping each quote to a swiper
-    quotesRef.current = [...quoteResponse.current].map((res)=>{
-      return <SwiperSlide key={res.data[0].quote_id} className={SwiperCSS.swiperSlide}> {React.cloneElement(component, {quote:res.data[0].quote, author:res.data[0].author})}</SwiperSlide>
-    })
-
-    //Rerenders the page after mapping all the quotes
-    setIsQuotesFetched((prev)=>prev = true);
-  }, []); 
   
+  const [ctIsQuotesFetched, setCtIsQuotesFetched] = useState(0);
+  const [updater, setUpdater] = useState(false);
+  
+  let [quoteResponse, getQuotes] = useFetchQuotes();
+
+  const forceUpdate = ()=> setUpdater((prev) => !prev);
+
+  const waitQuotes = useCallback(async ()=>{
+      quoteResponse = await getQuotes(numberOfQuotes.current, "https://www.breakingbadapi.com/api/quote/random");
+      console.log(quoteResponse);
+      setCtIsQuotesFetched((prev)=>prev = 1);
+    });
 
   useEffect(()=>{
-      if(ref.current || process.env.NODE_ENV !== 'development'){
-        Quotes();
+    if(ref.current || process.env.NODE_ENV !== 'development'){
+      console.log("res", quoteResponse, ctIsQuotesFetched);
+      if(ctIsQuotesFetched === 1){
+        quotesRef.current = [...quoteResponse].map((res)=>{
+          return <SwiperSlide key={res.data[0].quote_id} className={SwiperCSS.swiperSlide}> {React.cloneElement(component, {quote:res.data[0].quote, author:res.data[0].author})}</SwiperSlide>
+        })
+        setCtIsQuotesFetched(2);
       }
+      else if(ctIsQuotesFetched === 0){
+        waitQuotes();
+      }
+    }
     
-      return ()=>{
-        ref.current = true;
-      }
-    }, []);
-
-
-  console.log("re-render");
-
+    console.log(quotesRef);
+    return ()=>{
+      ref.current = true;
+    }
+    });
+    
+    
   return (
     <>
       <Swiper
@@ -64,7 +67,7 @@ export default function SwiperCarousel({component}) {
         modules={[Pagination, Autoplay]}
         className={SwiperCSS.swiper}
       >
-       {quotesRef.current}
+       {ctIsQuotesFetched ? quotesRef.current: quoteLoadPlaceholder}
       </Swiper>
     </>
   );

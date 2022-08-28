@@ -11,6 +11,7 @@ function App() {
       <Search/>
       <Intro/>
       <SwiperCarousel component={<Quote/>}/>
+      <h1>Hello</h1>
     </div>
   );
 }

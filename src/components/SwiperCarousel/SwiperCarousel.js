@@ -7,9 +7,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import SwiperCSS from "./SwiperCarousel.module.css";
 import { Pagination, Autoplay } from "swiper";
+import {Quote} from "../Quote/Quote";
 
-
-export default function SwiperCarousel() {
+export default function SwiperCarousel({component}) {
   console.log("rerender");
   let quotes = <SwiperSlide className={SwiperCSS.swiperSlide}>Fetching quotes...</SwiperSlide>;
   
@@ -17,10 +17,11 @@ export default function SwiperCarousel() {
   const ref = useRef(false);
   const quotesRef = useRef(quotes);
   const [isQuotesFetched, setIsQuotesFetched] = useState(false);
-  
+  const numberOfQuotes = useRef(6);
+
   const Quotes = useCallback(async _ => {
     //fetches until getting 6 unique quotes
-    while(quoteResponse.current.size < 6){
+    while(quoteResponse.current.size < numberOfQuotes.current){
       console.log("fetching");
       quoteResponse.current.add(await axios.get("https://www.breakingbadapi.com/api/quote/random"))
     }
@@ -28,7 +29,7 @@ export default function SwiperCarousel() {
     //converts the response to a list
     //then mapping each quote to a swiper
     quotesRef.current = [...quoteResponse.current].map((res)=>{
-      return <SwiperSlide key={res.data[0].quote_id} className={SwiperCSS.swiperSlide}> {res.data[0].quote} </SwiperSlide>
+      return <SwiperSlide key={res.data[0].quote_id} className={SwiperCSS.swiperSlide}> {React.cloneElement(component, {quote:res.data[0].quote, author:res.data[0].author})}</SwiperSlide>
     })
 
     //Rerenders the page after mapping all the quotes

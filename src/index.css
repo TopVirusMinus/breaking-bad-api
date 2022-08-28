@@ -11,7 +11,7 @@ html,body{
 }
 
 body{
-  background: radial-gradient(#467259 0%,#619C7B 100%) no-repeat;
+  background: #101111;
   background-size: cover;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;

@@ -15,7 +15,10 @@ input{
     outline: none;
     border: none;
     margin: 0 1%;
-    background-color: #2F5C53;
+    background-color: transparent;
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray;
+    outline: none;
     color: #eee;
 }
 
@@ -23,11 +26,11 @@ button{
     text-align: center;
     padding: 5px 20px;
     border: none;
-    background-color: #2F5C53;
+    background-color: transparent;
+    border: 1px solid gray;
     color: #eee;
 }
 
 button:hover{
-    background-color: #2F5C53;
     color: rgb(181, 177, 177);
 }

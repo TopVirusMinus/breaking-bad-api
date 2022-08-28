@@ -6,12 +6,31 @@
   height: 50vh;
   border-radius: 20px;
   background-color:#101111;
-  color: #55a193;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  color: #619C63;
+  /*box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;*/
 }
 
 *{
   font-family: monospace;
+}
+
+.introduction{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.subtitle{
+  width: 50%;
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: 0;
+}
+
+
+.extraInfo{
+  text-align: left;
 }
 
 .App-logo {

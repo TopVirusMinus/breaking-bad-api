@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: monospace;
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 html,body{
@@ -11,7 +11,7 @@ html,body{
 }
 
 body{
-  background: #101111;
+  background: #181818;
   background-size: cover;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;

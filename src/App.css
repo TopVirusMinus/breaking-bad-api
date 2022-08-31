@@ -1,17 +1,17 @@
 .App {
   text-align: center;
   width: 76%;
-  margin: 3% auto;
+  margin: 2% auto;
   background-color: red;
   height: 50vh;
   border-radius: 20px;
-  background-color:#101111;
+  background-color:#181818;
   color: #619C63;
   /*box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;*/
 }
 
 *{
-  font-family: monospace;
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 .introduction{

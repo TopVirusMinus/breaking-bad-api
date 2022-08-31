@@ -1,6 +1,6 @@
 .swiper {
   width: 50%;
-  height: 40%;
+  height: fit-content;
   margin-top: 2%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 20px;

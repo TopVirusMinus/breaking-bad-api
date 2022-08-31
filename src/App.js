@@ -8,7 +8,6 @@ import Intro from './components/Intro/Intro';
 function App() {
   return (
     <div className="App">
-      <Search/>
       <Intro/>
       <SwiperCarousel component={<Quote/>}/>
       <h1>Hello</h1>

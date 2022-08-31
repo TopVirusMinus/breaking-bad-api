@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/breaking-bad-api/static/css/main.3f38f88b.css",
-    "main.js": "/breaking-bad-api/static/js/main.927d957e.js",
+    "main.css": "/breaking-bad-api/static/css/main.8a599d52.css",
+    "main.js": "/breaking-bad-api/static/js/main.fbbb95d8.js",
+    "static/media/bg2.jpg": "/breaking-bad-api/static/media/bg2.5704d8e9a55aaaacb2a3.jpg",
+    "static/media/logo.png": "/breaking-bad-api/static/media/logo.27d39aaee58ccd44c550.png",
     "index.html": "/breaking-bad-api/index.html",
-    "main.3f38f88b.css.map": "/breaking-bad-api/static/css/main.3f38f88b.css.map",
-    "main.927d957e.js.map": "/breaking-bad-api/static/js/main.927d957e.js.map"
+    "main.8a599d52.css.map": "/breaking-bad-api/static/css/main.8a599d52.css.map",
+    "main.fbbb95d8.js.map": "/breaking-bad-api/static/js/main.fbbb95d8.js.map"
   },
   "entrypoints": [
-    "static/css/main.3f38f88b.css",
-    "static/js/main.927d957e.js"
+    "static/css/main.8a599d52.css",
+    "static/js/main.fbbb95d8.js"
   ]
 }
